@@ -56,7 +56,7 @@ public class Jumper : MonoBehaviour
 				// drag is basically % velocity lost per fixed update so drag>=1/fixeddeltatime prevents all movement
 				// thus as drag approaches that value the jump force must approach infinity
 				float dragCompensation = _fixedUpdatesPerSec / Mathf.Max(_fixedUpdatesPerSec - _rigidbody.drag, Mathf.Epsilon);
-				float jumpImpulse = Strength * -Physics.gravity.y * dragCompensation;
+				float jumpImpulse = Strength * Mathf.Sqrt(-Physics.gravity.y) * dragCompensation;
 				_rigidbody.AddForce(Vector3.up * jumpImpulse, ForceMode.Impulse);
 			}
 

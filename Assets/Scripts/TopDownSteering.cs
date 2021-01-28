@@ -8,6 +8,7 @@ public class TopDownSteering : MonoBehaviour
 	public Vector2 GoalDirection; // direction you want to steer towards
 	public float SteeringStrength; // how hard we will try to steer towards the goal
 	public float Speed; // multiplier applied to movement
+	public float XZDrag; // drag applied only in the XZ plane
 	public GameObject Visuals; // object that will be rotated to match steering
 
 	Rigidbody _rigidbody;
@@ -16,7 +17,17 @@ public class TopDownSteering : MonoBehaviour
 	void Awake()
 	{
 		_rigidbody = GetComponent<Rigidbody>();
-		if (_rigidbody == null) { Debug.Log("no Rigidbody component found", this); }
+		if (_rigidbody == null)
+		{
+			Debug.Log("no Rigidbody component found", this);
+		}
+		else
+		{
+			if (_rigidbody.drag > 0)
+			{
+				Debug.Log("rigidbody with topdownsteering has nonzero drag. this will behave badly", gameObject);
+			}
+		}
 
 		if (Visuals == null) { Debug.Log("you forgot to set the visuals for steering", this); }
 
@@ -36,6 +47,15 @@ public class TopDownSteering : MonoBehaviour
 	void FixedUpdate()
 	{
 		_rigidbody.AddForce(SteeringForce(_steeringDirection, Speed), ForceMode.VelocityChange);
+		_rigidbody.velocity = DragXZVelocity(XZDrag, _rigidbody.velocity);
+	}
+
+	// mimic unity's drag calculation on velocity, but only in the XZ plane
+	Vector3 DragXZVelocity(float drag, Vector3 currentVelocity)
+	{
+		float multiplier = 1.0f - drag * Time.fixedDeltaTime;
+		if (multiplier < 0.0f) multiplier = 0.0f;
+		return Vector3.Scale(currentVelocity, new Vector3(multiplier, 1.0f, multiplier));
 	}
 
 	Vector3 FacingEulerAngles(Vector2 newSteeringDirection)
