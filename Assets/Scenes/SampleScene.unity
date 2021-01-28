@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 723356533}
   - component: {fileID: 723356532}
   - component: {fileID: 723356531}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Seabed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ GameObject:
   - component: {fileID: 1071399396}
   - component: {fileID: 1071399395}
   - component: {fileID: 1071399394}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -974,6 +974,8 @@ GameObject:
   - component: {fileID: 1727119461}
   - component: {fileID: 1727119466}
   - component: {fileID: 1727119467}
+  - component: {fileID: 1727119463}
+  - component: {fileID: 1727119464}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1011,6 +1013,32 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1727119463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727119460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10fc85ab801264d40aa9819569568e95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxFloorDistance: 1.1
+  Strength: 20000
+--- !u!114 &1727119464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727119460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a4131d590e6498496c84ddcfaf7bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1727119465
 Transform:
   m_ObjectHideFlags: 0
