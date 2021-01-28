@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// make a rigidbody jump
 public class Jumper : MonoBehaviour
 {
 	public float MaxFloorDistance;
@@ -11,6 +12,7 @@ public class Jumper : MonoBehaviour
 	bool _shouldTryJump;
 	bool _jumping;
 	bool _airborne;
+	float _fixedUpdatesPerSec;
 
 	public bool Jump()
 	{
@@ -30,6 +32,7 @@ public class Jumper : MonoBehaviour
 
 		_jumping = false;
 		_airborne = false;
+		_fixedUpdatesPerSec = 1 / Time.fixedDeltaTime;
 	}
 
     // Start is called before the first frame update
@@ -49,7 +52,12 @@ public class Jumper : MonoBehaviour
 			if (IsWithinJumpDistance(transform.position))
 			{
 				_jumping = true;
-				_rigidbody.AddForce(Vector3.up * Strength, ForceMode.Impulse);
+				// according to https://answers.unity.com/questions/49001/how-is-drag-applied-to-force.html
+				// drag is basically % velocity lost per fixed update so drag>=1/fixeddeltatime prevents all movement
+				// thus as drag approaches that value the jump force must approach infinity
+				float dragCompensation = _fixedUpdatesPerSec / Mathf.Max(_fixedUpdatesPerSec - _rigidbody.drag, Mathf.Epsilon);
+				float jumpImpulse = Strength * -Physics.gravity.y * dragCompensation;
+				_rigidbody.AddForce(Vector3.up * jumpImpulse, ForceMode.Impulse);
 			}
 
 			_shouldTryJump = false;
