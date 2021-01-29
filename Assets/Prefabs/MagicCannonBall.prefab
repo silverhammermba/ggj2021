@@ -61,7 +61,7 @@ GameObject:
   - component: {fileID: 2695089840854407775}
   - component: {fileID: 2695089840854407774}
   - component: {fileID: 2695089840854407762}
-  - component: {fileID: 2466777130332075843}
+  - component: {fileID: 1893351824733183149}
   m_Layer: 0
   m_Name: MagicCannonBall
   m_TagString: Untagged
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelfDestruct: 1
---- !u!114 &2466777130332075843
+--- !u!114 &1893351824733183149
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,9 +153,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2695089840854407773}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2e1582d5976b41c780a9ae8cc7fd2c0, type: 3}
+  m_Script: {fileID: 11500000, guid: d4f7e179628b4491babc90cfa167797b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FuseSeconds: 5
+  FlashAmplitude: 0.2
+  FlashSpread: 10
+  Visuals: {fileID: 2695089840750776401}
 --- !u!1 &2695089840944505546
 GameObject:
   m_ObjectHideFlags: 0
