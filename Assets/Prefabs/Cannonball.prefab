@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753669654060710075}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.55, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1753669654675708280}
@@ -91,6 +91,7 @@ GameObject:
   - component: {fileID: 1753669654675708259}
   - component: {fileID: 1753669654675708261}
   - component: {fileID: 1753669654675708262}
+  - component: {fileID: -993827218265753266}
   - component: {fileID: 1753669654675708260}
   m_Layer: 0
   m_Name: Cannonball
@@ -107,7 +108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1753669654675708258}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.23, y: 2.33, z: 1.82}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1753669654060710076}
@@ -141,7 +142,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.45
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1753669654675708262
 MonoBehaviour:
@@ -156,6 +157,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelfDestruct: 1
+--- !u!114 &-993827218265753266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753669654675708258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2e1582d5976b41c780a9ae8cc7fd2c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1753669654675708260
 MonoBehaviour:
   m_ObjectHideFlags: 0
