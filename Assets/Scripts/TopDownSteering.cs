@@ -10,6 +10,7 @@ public class TopDownSteering : MonoBehaviour
 	public float Speed; // multiplier applied to movement
 	public float XZDrag; // drag applied only in the XZ plane
 	public GameObject Visuals; // object that will be rotated to match steering
+	public float InitialFacing; // used on start to set starting facing
 
 	Rigidbody _rigidbody;
 	float _steeringDirectionR; // direction we are steering in radians
@@ -20,7 +21,7 @@ public class TopDownSteering : MonoBehaviour
 		_rigidbody = GetComponent<Rigidbody>();
 		if (_rigidbody == null)
 		{
-			Debug.Log("no Rigidbody component found", this);
+			Debug.Log("no Rigidbody component found", gameObject);
 		}
 		else
 		{
@@ -30,25 +31,21 @@ public class TopDownSteering : MonoBehaviour
 			}
 		}
 
-		if (Visuals == null)
-		{
-			Debug.Log("you forgot to set the visuals for steering", this);
-		}
-		else
-		{
-			_steeringDirectionR = Angle.Radians(Visuals.transform.localEulerAngles.y);
-		}
+		if (Visuals == null) { Debug.Log("you forgot to set the visuals for steering", gameObject); }
 
 		_steeringSpeed = 0;
 	}
 
     void Start()
     {
+		_steeringDirectionR = InitialFacing;
+		Visuals.transform.localEulerAngles = FacingEulerAngles(_steeringDirectionR);
     }
 
     void Update()
     {
-		var (dir, sp) = NewSteering(_steeringDirectionR, _steeringSpeed, GoalDirection, SteeringStrength);
+		// TODO: i'm not 100% sure that the deltaTime makes the lerp framerate-independent
+		var (dir, sp) = NewSteering(_steeringDirectionR, _steeringSpeed, GoalDirection, SteeringStrength * Time.deltaTime);
 		_steeringDirectionR = dir;
 		_steeringSpeed = sp;
 
