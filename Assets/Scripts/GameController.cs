@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 {
 	public GameObject DigSpotPrefab;
 	public TopDownSteering CannonBallPrefab;
+	public ParticleSystem CannonPrefab;
 	public Seeker Shark;
 
 	public int DigSpotsSqrRoot;
@@ -20,6 +21,7 @@ public class GameController : MonoBehaviour
 	public float CannonBallRateVariance;
 
 	List<Vector3> _cannonBallSpawns;
+	List<ParticleSystem> _cannons;
 	float _nextSpawn;
 
 	void Awake()
@@ -40,6 +42,14 @@ public class GameController : MonoBehaviour
 		}
 
 		_cannonBallSpawns = cannonPositions;
+		_cannons = new List<ParticleSystem>();
+		foreach (var pos in _cannonBallSpawns)
+		{
+			var goal = CannonBallGoal(pos);
+			float yAngle = Angle.Degrees(goal);
+			_cannons.Add(Object.Instantiate(CannonPrefab, pos, Quaternion.Euler(0, 90.0f - yAngle, 0)).GetComponent<ParticleSystem>());
+		}
+
 		_nextSpawn = NextCannonBallSpawnTime(Time.time);
 
 		Shark.GetComponent<NavMeshAgent>().Warp(SharkStartPosition(Shark));
@@ -52,40 +62,49 @@ public class GameController : MonoBehaviour
 
 		while (now >= _nextSpawn)
 		{
-			var (pos, goal) = CannonBallSpawn();
+			var (pos, goal, index) = CannonBallSpawn();
+
 			var cannonBall = Object.Instantiate(CannonBallPrefab, pos, Quaternion.identity).GetComponent<TopDownSteering>();
 			cannonBall.GoalDirection = goal;
 			cannonBall.InitialFacingDegrees = -Angle.Degrees(goal);
+			_cannons[index].Play();
+
 			_nextSpawn = NextCannonBallSpawnTime(_nextSpawn);
 		}
     }
 
 	// get random cannon ball spawn position and goal direction
-	(Vector3 pos, Vector2 goal) CannonBallSpawn()
+	(Vector3 pos, Vector2 goal, int index) CannonBallSpawn()
 	{
 		int spawn = Random.Range(0, _cannonBallSpawns.Count);
 
 		var pos = _cannonBallSpawns[spawn];
 		pos.y += (Random.value * 2.0f - 0.5f) * CannonBallHeightVariance;
 
-		bool topLeft = pos.z > pos.x;
-		bool topRight = pos.z > -pos.x;
+		return (pos, CannonBallGoal(pos), spawn);
+	}
+
+	// return goal in top-down XY coords (Y is Z in 3D)
+	Vector2 CannonBallGoal(Vector3 cannonBallStart)
+	{
+		bool topLeft = cannonBallStart.z > cannonBallStart.x;
+		bool topRight = cannonBallStart.z > -cannonBallStart.x;
 
 		if (topLeft && topRight)
 		{
-			return (pos, new Vector2(0, -1));
+			return new Vector2(0, -1);
 		}
 		else if (topLeft && !topRight)
 		{
-			return (pos, new Vector2(1, 0));
+			return new Vector2(1, 0);
 		}
 		else if (!topLeft && topRight)
 		{
-			return (pos, new Vector2(-1, 0));
+			return new Vector2(-1, 0);
 		}
 		else
 		{
-			return (pos, new Vector2(0, 1));
+			return new Vector2(0, 1);
 		}
 	}
 

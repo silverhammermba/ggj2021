@@ -439,6 +439,8 @@ MonoBehaviour:
     type: 3}
   CannonBallPrefab: {fileID: 1753669654675708260, guid: e66992094553741329b2dfc706ba71dc,
     type: 3}
+  CannonPrefab: {fileID: 7922718154132703745, guid: 81df395ec2ab146baaf781d67f1c56de,
+    type: 3}
   Shark: {fileID: 1063052024}
   DigSpotsSqrRoot: 6
   DigSpotRandomRadius: 0.05
@@ -1878,3 +1880,72 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4903d082a3b3e40b8b347ac3520f51ed, type: 3}
+--- !u!1001 &7922718153711482609
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703744, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922718154132703775, guid: 81df395ec2ab146baaf781d67f1c56de,
+        type: 3}
+      propertyPath: m_Name
+      value: Cannon
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 81df395ec2ab146baaf781d67f1c56de, type: 3}
