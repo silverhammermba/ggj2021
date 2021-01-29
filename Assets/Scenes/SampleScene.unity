@@ -445,8 +445,8 @@ MonoBehaviour:
   DigSpotsSqrRoot: 6
   DigSpotRandomRadius: 0.05
   DigSpotSpacing: 1.7
-  CannonBallDistance: 5
-  CannonBallHeight: 1.84
+  CannonBallDistance: 7
+  CannonBallHeight: 1.5
   CannonBallHeightVariance: 0.24
   CannonBallRate: 0.8
   CannonBallRateVariance: 0.5

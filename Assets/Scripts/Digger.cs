@@ -6,31 +6,41 @@ public class Digger : MonoBehaviour
 {
 	public float DigSpeed;
 
-	Diggable _target;
-	Rigidbody _rigidbody;
-	bool _digging;
+	Diggable _target; // what we are currently digging
+	HashSet<Diggable> _inRange; // all things within digging range
+	Rigidbody _rigidbody; // TODO: unused, maybe we want to stop moving while digging?
 
 	void Awake()
 	{
 		_rigidbody = GetComponent<Rigidbody>();
 		if (_rigidbody == null) { Debug.Log("no rigidbody for digger", gameObject); }
 
-		_digging = false;
+		_inRange = new HashSet<Diggable>();
 	}
 
 	public bool StartDigging()
 	{
-		if (_target != null)
+		StopDigging();
+
+		Diggable closest = null;
+		float closestDist = Mathf.Infinity;
+		foreach (var target in _inRange)
 		{
-			if (_digging)
+			float newDist = Vector3.Distance(transform.position, target.transform.position);
+			if (newDist < closestDist)
 			{
-				Debug.Log("somehow started digging while we already were?", gameObject);
-				StopDigging();
+				closest = target;
+				closestDist = newDist;
 			}
-			_digging = true;
+		}
+
+		if (closest != null)
+		{
+			_target = closest;
 			_target.StartDigging(this);
 			return true;
 		}
+
 		return false;
 	}
 
@@ -40,21 +50,21 @@ public class Digger : MonoBehaviour
 		{
 			_target.StopDigging();
 		}
-		_digging = false;
+		_target = null;
 	}
 
-	public void SetTarget(Diggable target)
+	public void InRange(Diggable target)
 	{
-		StopDigging();
-		_target = target;
+		_inRange.Add(target);
 	}
 
-	public void UnsetTarget(Diggable target)
+	public void OutOfRange(Diggable target)
 	{
+		_inRange.Remove(target);
+
 		if (_target == target)
 		{
 			StopDigging();
-			_target = null;
 		}
 	}
 }

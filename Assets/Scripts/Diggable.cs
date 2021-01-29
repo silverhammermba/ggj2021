@@ -44,6 +44,7 @@ public class Diggable : MonoBehaviour
 			if (_workDone >= TotalWork)
 			{
 				// TODO: give digger some reward
+				_digger.OutOfRange(this);
 				Destroy(gameObject);
 			}
 			else
@@ -58,7 +59,7 @@ public class Diggable : MonoBehaviour
 		var digger = other.GetComponent<Digger>();
 		if (digger == null) return;
 
-		digger.SetTarget(this);
+		digger.InRange(this);
 	}
 
 	void OnTriggerExit(Collider other)
@@ -66,7 +67,7 @@ public class Diggable : MonoBehaviour
 		var digger = other.GetComponent<Digger>();
 		if (digger == null) return;
 
-		digger.UnsetTarget(this);
+		digger.OutOfRange(this);
 		_digUI.enabled = false;
 	}
 }
