@@ -12,10 +12,6 @@ public class InputSteering : MonoBehaviour
 		if (_steering == null) { Debug.Log("can't find TopDownSteering component", this); }
 	}
 
-    void Start()
-    {
-    }
-
     void Update()
     {
 		_steering.GoalDirection = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));

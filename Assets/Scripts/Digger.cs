@@ -18,14 +18,6 @@ public class Digger : MonoBehaviour
 		_digging = false;
 	}
 
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
 	public bool StartDigging()
 	{
 		if (_target != null)

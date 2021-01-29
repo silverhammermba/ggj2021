@@ -14,17 +14,6 @@ public class Jumper : MonoBehaviour
 	bool _airborne;
 	float _fixedUpdatesPerSec;
 
-	public bool Jump()
-	{
-		if (_jumping || _airborne)
-		{
-			return false;
-		}
-
-		_shouldTryJump = true;
-		return true;
-	}
-
 	void Awake()
 	{
 		_rigidbody = GetComponent<Rigidbody>();
@@ -35,12 +24,10 @@ public class Jumper : MonoBehaviour
 		_fixedUpdatesPerSec = 1 / Time.fixedDeltaTime;
 	}
 
-    // Start is called before the first frame update
     void Start()
     {
     }
 
-    // Update is called once per frame
     void Update()
     {
     }
@@ -84,6 +71,17 @@ public class Jumper : MonoBehaviour
 				}
 			}
 		}
+	}
+
+	public bool Jump()
+	{
+		if (_jumping || _airborne)
+		{
+			return false;
+		}
+
+		_shouldTryJump = true;
+		return true;
 	}
 
 	// test if floor is within MaxFloorDistance of startPoint

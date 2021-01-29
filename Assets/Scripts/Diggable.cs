@@ -24,10 +24,6 @@ public class Diggable : MonoBehaviour
 		_digger = null;
 	}
 
-    void Start()
-    {
-    }
-
 	public void StartDigging(Digger digger)
 	{
 		_digger = digger;
