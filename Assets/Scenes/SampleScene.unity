@@ -324,11 +324,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DigSpotPrefab: {fileID: 1312713650227294725, guid: c330ac9256aae428cacb2d960bf3ef73,
     type: 3}
-  CannonBallPrefab: {fileID: 1753669654675708258, guid: e66992094553741329b2dfc706ba71dc,
+  CannonBallPrefab: {fileID: 1753669654675708260, guid: e66992094553741329b2dfc706ba71dc,
     type: 3}
   DigSpotsSqrRoot: 6
   DigSpotRandomRadius: 0.05
   DigSpotSpacing: 1.7
+  CannonBallDistance: 5
+  CannonBallHeight: 1.84
+  CannonBallHeightVariance: 0.24
+  CannonBallRate: 3
+  CannonBallRateVariance: 0.5
 --- !u!1 &508623443
 GameObject:
   m_ObjectHideFlags: 0
@@ -1077,7 +1082,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1727119460}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.15, y: 1.94, z: -2.02}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1375247566}
@@ -1101,7 +1106,7 @@ MonoBehaviour:
   Speed: 5
   XZDrag: 40
   Visuals: {fileID: 1375247565}
-  InitialFacing: 45
+  InitialFacingDegrees: 45
 --- !u!114 &1727119467
 MonoBehaviour:
   m_ObjectHideFlags: 0

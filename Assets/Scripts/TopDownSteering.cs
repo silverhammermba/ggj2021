@@ -10,7 +10,7 @@ public class TopDownSteering : MonoBehaviour
 	public float Speed; // multiplier applied to movement
 	public float XZDrag; // drag applied only in the XZ plane
 	public GameObject Visuals; // object that will be rotated to match steering
-	public float InitialFacing; // used on start to set starting facing
+	public float InitialFacingDegrees; // used on start to set starting facing
 
 	Rigidbody _rigidbody;
 	float _steeringDirectionR; // direction we are steering in radians
@@ -38,7 +38,7 @@ public class TopDownSteering : MonoBehaviour
 
     void Start()
     {
-		_steeringDirectionR = InitialFacing;
+		_steeringDirectionR = Angle.Radians(InitialFacingDegrees);
 		Visuals.transform.localEulerAngles = FacingEulerAngles(_steeringDirectionR);
     }
 
