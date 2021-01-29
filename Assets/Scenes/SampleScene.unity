@@ -439,6 +439,7 @@ MonoBehaviour:
     type: 3}
   CannonBallPrefab: {fileID: 1753669654675708260, guid: e66992094553741329b2dfc706ba71dc,
     type: 3}
+  Shark: {fileID: 1063052024}
   DigSpotsSqrRoot: 6
   DigSpotRandomRadius: 0.05
   DigSpotSpacing: 1.7

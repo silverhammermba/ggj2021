@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
 	public GameObject DigSpotPrefab;
 	public TopDownSteering CannonBallPrefab;
+	public Seeker Shark;
 
 	public int DigSpotsSqrRoot;
 	public float DigSpotRandomRadius;
@@ -22,11 +24,9 @@ public class GameController : MonoBehaviour
 
 	void Awake()
 	{
-		if (DigSpotPrefab == null)
-		{
-			Debug.Log("You forgot to set the dig spot prefab", gameObject);
-		}
+		if (DigSpotPrefab == null) { Debug.Log("You forgot to set the dig spot prefab", gameObject); }
 		if (CannonBallPrefab == null) { Debug.Log("You forgot to set the cannon ball prefab", gameObject); }
+		if (Shark == null) { Debug.Log("You forgot to set the shark object", gameObject); }
 
 		_nextSpawn = 0;
 	}
@@ -41,6 +41,8 @@ public class GameController : MonoBehaviour
 
 		_cannonBallSpawns = cannonPositions;
 		_nextSpawn = NextCannonBallSpawnTime(Time.time);
+
+		Shark.GetComponent<NavMeshAgent>().Warp(SharkStartPosition(Shark));
     }
 
     // Update is called once per frame
@@ -115,5 +117,11 @@ public class GameController : MonoBehaviour
 		}
 
 		return (digPositions, cannonBallPositions);
+	}
+
+	Vector3 SharkStartPosition(Seeker shark)
+	{
+		float angle = Random.value * Mathf.PI * 2;
+		return new Vector3(Mathf.Cos(angle), 0, Mathf.Sin(angle)) * shark.WanderRadius;
 	}
 }
