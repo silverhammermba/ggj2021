@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 1753669654675708262}
   - component: {fileID: -993827218265753266}
   - component: {fileID: 1753669654675708260}
+  - component: {fileID: 5768160313384566218}
   m_Layer: 0
   m_Name: Cannonball
   m_TagString: Untagged
@@ -187,3 +188,15 @@ MonoBehaviour:
   XZDrag: 20
   Visuals: {fileID: 1753669654060710075}
   InitialFacingDegrees: 0
+--- !u!114 &5768160313384566218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1753669654675708258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28fe21411acae4af5ab01f9a35cbd33d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
