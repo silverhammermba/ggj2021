@@ -7,8 +7,10 @@ public class GameController : MonoBehaviour
 {
 	public GameObject DigSpotPrefab;
 	public TopDownSteering CannonBallPrefab;
+	public TopDownSteering MagicCannonBallPrefab;
 	public ParticleSystem CannonPrefab;
 	public Seeker Shark;
+	public GameObject Player;
 
 	public int DigSpotsSqrRoot;
 	public float DigSpotRandomRadius;
@@ -19,6 +21,7 @@ public class GameController : MonoBehaviour
 	public float CannonBallHeightVariance;
 	public float CannonBallRate;
 	public float CannonBallRateVariance;
+	public float MagicCannonBallPercent;
 
 	List<Vector3> _cannonBallSpawns;
 	List<ParticleSystem> _cannons;
@@ -28,7 +31,9 @@ public class GameController : MonoBehaviour
 	{
 		if (DigSpotPrefab == null) { Debug.Log("You forgot to set the dig spot prefab", gameObject); }
 		if (CannonBallPrefab == null) { Debug.Log("You forgot to set the cannon ball prefab", gameObject); }
+		if (MagicCannonBallPrefab == null) { Debug.Log("You forgot to set the magic cannon ball prefab", gameObject); }
 		if (Shark == null) { Debug.Log("You forgot to set the shark object", gameObject); }
+		if (Player == null) { Debug.Log("You forgot to set the player object", gameObject); }
 
 		_nextSpawn = 0;
 	}
@@ -64,9 +69,23 @@ public class GameController : MonoBehaviour
 		{
 			var (pos, goal, index) = CannonBallSpawn();
 
-			var cannonBall = Object.Instantiate(CannonBallPrefab, pos, Quaternion.identity).GetComponent<TopDownSteering>();
+			var prefab = CannonBallPrefab;
+			if (Random.value <= MagicCannonBallPercent)
+			{
+				prefab = MagicCannonBallPrefab;
+			}
+
+			var cannonBall = Object.Instantiate(prefab, pos, Quaternion.identity).GetComponent<TopDownSteering>();
 			cannonBall.GoalDirection = goal;
 			cannonBall.InitialFacingDegrees = -Angle.Degrees(goal);
+
+			var magic = cannonBall.gameObject.GetComponent<SteerTowardTarget>();
+			if (magic != null)
+			{
+				magic.Target = Player;
+				// TODO: modify cannon
+			}
+
 			_cannons[index].Play();
 
 			_nextSpawn = NextCannonBallSpawnTime(_nextSpawn);

@@ -8,7 +8,7 @@ public class Killer : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		var killable = other.GetComponent<Killable>();
+		var killable = other.GetComponentInParent<Killable>();
 		if (killable == null) return;
 
 		killable.Die();
