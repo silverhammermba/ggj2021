@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour
 	public GameObject DigSpotPrefab;
 	public TopDownSteering CannonBallPrefab;
 	public TopDownSteering MagicCannonBallPrefab;
-	public ParticleSystem CannonPrefab;
+	public Cannon CannonPrefab;
 	public Seeker Shark;
 	public GameObject Player;
 
@@ -24,7 +24,7 @@ public class GameController : MonoBehaviour
 	public float MagicCannonBallPercent;
 
 	List<Vector3> _cannonBallSpawns;
-	List<ParticleSystem> _cannons;
+	List<Cannon> _cannons;
 	float _nextSpawn;
 
 	void Awake()
@@ -47,12 +47,12 @@ public class GameController : MonoBehaviour
 		}
 
 		_cannonBallSpawns = cannonPositions;
-		_cannons = new List<ParticleSystem>();
+		_cannons = new List<Cannon>();
 		foreach (var pos in _cannonBallSpawns)
 		{
 			var goal = CannonBallGoal(pos);
 			float yAngle = Angle.Degrees(goal);
-			_cannons.Add(Object.Instantiate(CannonPrefab, pos, Quaternion.Euler(0, 90.0f - yAngle, 0)).GetComponent<ParticleSystem>());
+			_cannons.Add(Object.Instantiate(CannonPrefab, pos, Quaternion.Euler(0, 90.0f - yAngle, 0)).GetComponent<Cannon>());
 		}
 
 		_nextSpawn = NextCannonBallSpawnTime(Time.time);
@@ -83,10 +83,9 @@ public class GameController : MonoBehaviour
 			if (magic != null)
 			{
 				magic.Target = Player;
-				// TODO: modify cannon
 			}
 
-			_cannons[index].Play();
+			_cannons[index].Fire(magic != null);
 
 			_nextSpawn = NextCannonBallSpawnTime(_nextSpawn);
 		}
