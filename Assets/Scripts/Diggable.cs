@@ -6,6 +6,11 @@ using UnityEngine.UI;
 public class Diggable : MonoBehaviour
 {
 	public float TotalWork;
+	public float DiggerShoveStrength;
+	public float TreasureThrowStrength;
+
+	public GameController Controller;
+	public Treasure ContentsPrefab;
 
 	float _workDone;
 	Digger _digger;
@@ -22,6 +27,11 @@ public class Diggable : MonoBehaviour
 
 		_workDone = 0;
 		_digger = null;
+	}
+
+	void Start()
+	{
+		if (Controller == null) { Debug.Log("no manager to track this diggable!", gameObject); }
 	}
 
 	public void StartDigging(Digger digger)
@@ -43,16 +53,41 @@ public class Diggable : MonoBehaviour
 
 			if (_workDone >= TotalWork)
 			{
-				// TODO: give digger some reward
-				_digger.OutOfRange(this);
-				Destroy(gameObject);
+				FinishDigging();
 			}
 			else
 			{
-				_progressImage.fillAmount = _workDone / TotalWork;
+				_progressImage.fillAmount = 1.0f - _workDone / TotalWork;
 			}
 		}
     }
+
+	void FinishDigging()
+	{
+		var rigidbody = _digger.GetComponent<Rigidbody>();
+		if (rigidbody != null)
+		{
+			float fixedUpdatesPerSec = 1 / Time.fixedDeltaTime;
+			float dragCompensation = fixedUpdatesPerSec / Mathf.Max(fixedUpdatesPerSec - rigidbody.drag, Mathf.Epsilon);
+			float jumpImpulse = DiggerShoveStrength * Mathf.Sqrt(-Physics.gravity.y) * dragCompensation;
+
+			rigidbody.AddForce(Vector3.up * jumpImpulse, ForceMode.Impulse);
+		}
+
+		_digger.OutOfRange(this);
+
+		var treasure = Object.Instantiate(ContentsPrefab, transform.position, Quaternion.identity).GetComponent<Treasure>();
+		float randRadians = Random.value * Mathf.PI * 2;
+		treasure.Controller = Controller;
+
+		rigidbody = treasure.GetComponent<Rigidbody>();
+		if (rigidbody != null)
+		{
+			rigidbody.AddForce(new Vector3(Mathf.Cos(randRadians), 1.0f, Mathf.Sin(randRadians)) * TreasureThrowStrength, ForceMode.Impulse);
+		}
+
+		Destroy(gameObject);
+	}
 
 	void OnTriggerEnter(Collider other)
 	{

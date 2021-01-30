@@ -151,6 +151,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TotalWork: 100
+  DiggerShoveStrength: 150
+  TreasureThrowStrength: 15
+  Controller: {fileID: 0}
+  ContentsPrefab: {fileID: 0}
 --- !u!1 &1312713650542572496
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class GameController : MonoBehaviour
 {
-	public GameObject DigSpotPrefab;
+	public Diggable DigSpotPrefab;
+	public Treasure TreasurePrefab;
 	public TopDownSteering CannonBallPrefab;
 	public TopDownSteering MagicCannonBallPrefab;
 	public Cannon CannonPrefab;
@@ -26,16 +27,24 @@ public class GameController : MonoBehaviour
 	List<Vector3> _cannonBallSpawns;
 	List<Cannon> _cannons;
 	float _nextSpawn;
+	int _score;
+
+	public void AddScore(int amount)
+	{
+		_score += amount;
+	}
 
 	void Awake()
 	{
 		if (DigSpotPrefab == null) { Debug.Log("You forgot to set the dig spot prefab", gameObject); }
+		if (TreasurePrefab == null) { Debug.Log("You forgot to set the treasure prefab", gameObject); }
 		if (CannonBallPrefab == null) { Debug.Log("You forgot to set the cannon ball prefab", gameObject); }
 		if (MagicCannonBallPrefab == null) { Debug.Log("You forgot to set the magic cannon ball prefab", gameObject); }
 		if (Shark == null) { Debug.Log("You forgot to set the shark object", gameObject); }
 		if (Player == null) { Debug.Log("You forgot to set the player object", gameObject); }
 
 		_nextSpawn = 0;
+		_score = 0;
 	}
 
     void Start()
@@ -43,7 +52,9 @@ public class GameController : MonoBehaviour
 		var (digPositions, cannonPositions) = DigPositions(DigSpotsSqrRoot, DigSpotSpacing);
 		foreach (var pos in digPositions)
 		{
-			Object.Instantiate(DigSpotPrefab, pos, Quaternion.identity);
+			var diggable = Object.Instantiate(DigSpotPrefab, pos, Quaternion.identity).GetComponent<Diggable>();
+			diggable.ContentsPrefab = TreasurePrefab;
+			diggable.Controller = this;
 		}
 
 		_cannonBallSpawns = cannonPositions;
