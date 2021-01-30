@@ -447,6 +447,7 @@ MonoBehaviour:
     type: 3}
   Shark: {fileID: 1063052024}
   Player: {fileID: 1727119460}
+  MaxPayoff: 8
   DigSpotsSqrRoot: 6
   DigSpotRandomRadius: 0.05
   DigSpotSpacing: 1.7
@@ -1773,7 +1774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07abdca083a154d9cb5f2eb4f51ddcaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DigSpeed: 25
+  DigSpeed: 40
 --- !u!114 &1727119470
 MonoBehaviour:
   m_ObjectHideFlags: 0
