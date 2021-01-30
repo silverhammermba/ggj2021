@@ -13,6 +13,8 @@ public class GameController : MonoBehaviour
 	public Seeker Shark;
 	public GameObject Player;
 
+	public int MaxPayoff;
+
 	public int DigSpotsSqrRoot;
 	public float DigSpotRandomRadius;
 	public float DigSpotSpacing;
@@ -49,11 +51,15 @@ public class GameController : MonoBehaviour
 
     void Start()
     {
+		float distToEdge = ((DigSpotsSqrRoot - 1) * DigSpotSpacing) / 2;
+		float maxPayoffDist = Mathf.Sqrt(distToEdge * distToEdge * 2);
+
 		var (digPositions, cannonPositions) = DigPositions(DigSpotsSqrRoot, DigSpotSpacing);
 		foreach (var pos in digPositions)
 		{
 			var diggable = Object.Instantiate(DigSpotPrefab, pos, Quaternion.identity).GetComponent<Diggable>();
 			diggable.ContentsPrefab = TreasurePrefab;
+			diggable.Quantity = Random.Range(0, Mathf.Max((int)Mathf.Ceil(pos.magnitude * MaxPayoff / maxPayoffDist), 2));
 			diggable.Controller = this;
 		}
 
