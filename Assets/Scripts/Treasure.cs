@@ -58,7 +58,7 @@ public class Treasure : MonoBehaviour
 	{
 		if (other.CompareTag("Player"))
 		{
-			Controller.AddScore(1);
+			if (Controller != null) Controller.AddScore(1);
 			Destroy(gameObject);
 		}
 	}
