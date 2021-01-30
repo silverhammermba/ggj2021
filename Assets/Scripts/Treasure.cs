@@ -5,17 +5,32 @@ using UnityEngine;
 public class Treasure : MonoBehaviour
 {
 	public GameController Controller;
-	public float PickupDelay;
 	public Collider Trigger;
+	public Collider PhysCollider;
+
+	public float PickupDelay;
+	public float MinThrowStrength;
+	public float ThrowVariance;
 
 	float _startTime;
+	Rigidbody _rigidbody;
+	bool _flung;
 
     // Start is called before the first frame update
     void Start()
     {
+		_rigidbody = GetComponent<Rigidbody>();
+		if (_rigidbody == null) { Debug.Log("can't find rigidbody on treasure", gameObject); }
+
 		if (Controller == null) { Debug.Log("no manager to track this treasure!", gameObject); }
+		if (Trigger == null) { Debug.Log("you forgot to set the trigger on treasure", gameObject); }
+		if (PhysCollider == null) { Debug.Log("you forgot to set the phys collider on treasure", gameObject); }
 
 		_startTime = Time.time;
+
+		Trigger.enabled = false;
+		PhysCollider.enabled = false;
+		_flung = false;
     }
 
     // Update is called once per frame
@@ -24,8 +39,19 @@ public class Treasure : MonoBehaviour
 		if (!Trigger.enabled && Time.time - _startTime >= PickupDelay)
 		{
 			Trigger.enabled = true;
+			PhysCollider.enabled = true;
 		}
     }
+
+	void FixedUpdate()
+	{
+		if (!_flung)
+		{
+			float randRadians = Random.value * Mathf.PI * 2;
+			_rigidbody.AddForce(new Vector3(Mathf.Cos(randRadians), 1.0f, Mathf.Sin(randRadians)) * (MinThrowStrength + Random.value * ThrowVariance), ForceMode.Impulse);
+			_flung = true;
+		}
+	}
 
 	void OnTriggerEnter(Collider other)
 	{

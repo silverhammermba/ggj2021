@@ -121,8 +121,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Controller: {fileID: 0}
-  PickupDelay: 0.25
   Trigger: {fileID: 7823902107425429582}
+  PhysCollider: {fileID: 4654052183288484597}
+  PickupDelay: 0.25
+  MinThrowStrength: 5
+  ThrowVariance: 20
 --- !u!1 &7823902108071879075
 GameObject:
   m_ObjectHideFlags: 0

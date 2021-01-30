@@ -7,7 +7,6 @@ public class Diggable : MonoBehaviour
 {
 	public float TotalWork;
 	public float DiggerShoveStrength;
-	public float TreasureThrowStrength;
 
 	public GameController Controller;
 	public Treasure ContentsPrefab;
@@ -77,23 +76,10 @@ public class Diggable : MonoBehaviour
 
 		_digger.OutOfRange(this);
 
-		StartCoroutine(LaunchTreasure(Quantity, transform.position, ContentsPrefab, Controller, TreasureThrowStrength));
-	}
-
-	IEnumerator LaunchTreasure(int quantity, Vector3 start, Treasure prefab, GameController controller, float strength)
-	{
-		for (var i = 0; i < quantity; ++i)
+		for (var i = 0; i < Quantity; ++i)
 		{
-			var treasure = Object.Instantiate(prefab, start, Quaternion.identity).GetComponent<Treasure>();
-			float randRadians = Random.value * Mathf.PI * 2;
-			treasure.Controller = controller;
-
-			var rigidbody = treasure.GetComponent<Rigidbody>();
-			if (rigidbody != null)
-			{
-				rigidbody.AddForce(new Vector3(Mathf.Cos(randRadians), 1.0f, Mathf.Sin(randRadians)) * strength, ForceMode.Impulse);
-			}
-			yield return null;
+			var treasure = Object.Instantiate(ContentsPrefab, transform.position, Quaternion.identity).GetComponent<Treasure>();
+			treasure.Controller = Controller;
 		}
 
 		Destroy(gameObject);
