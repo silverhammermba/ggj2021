@@ -14,11 +14,11 @@ public class InputDig : MonoBehaviour
 
     void Update()
     {
-		if (Input.GetButtonDown("Fire1"))
+		if (Input.GetButtonDown("Dig"))
 		{
 			_digger.StartDigging();
 		}
-		else if (Input.GetButtonUp("Fire1"))
+		else if (Input.GetButtonUp("Dig"))
 		{
 			_digger.StopDigging();
 		}

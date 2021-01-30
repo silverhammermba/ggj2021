@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -110,6 +111,11 @@ public class GameController : MonoBehaviour
 			_cannons[index].Fire(magic != null);
 
 			_nextSpawn = NextCannonBallSpawnTime(_nextSpawn);
+		}
+
+		if (Input.GetButtonDown("Reset"))
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
     }
 

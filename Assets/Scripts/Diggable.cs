@@ -64,14 +64,17 @@ public class Diggable : MonoBehaviour
 
 	void FinishDigging()
 	{
-		var rigidbody = _digger.GetComponent<Rigidbody>();
-		if (rigidbody != null)
+		if (Quantity > 0)
 		{
-			float fixedUpdatesPerSec = 1 / Time.fixedDeltaTime;
-			float dragCompensation = fixedUpdatesPerSec / Mathf.Max(fixedUpdatesPerSec - rigidbody.drag, Mathf.Epsilon);
-			float jumpImpulse = DiggerShoveStrength * Mathf.Sqrt(-Physics.gravity.y) * dragCompensation;
+			var rigidbody = _digger.GetComponent<Rigidbody>();
+			if (rigidbody != null)
+			{
+				float fixedUpdatesPerSec = 1 / Time.fixedDeltaTime;
+				float dragCompensation = fixedUpdatesPerSec / Mathf.Max(fixedUpdatesPerSec - rigidbody.drag, Mathf.Epsilon);
+				float jumpImpulse = DiggerShoveStrength * Mathf.Sqrt(-Physics.gravity.y) * dragCompensation;
 
-			rigidbody.AddForce(Vector3.up * jumpImpulse, ForceMode.Impulse);
+				rigidbody.AddForce(Vector3.up * jumpImpulse, ForceMode.Impulse);
+			}
 		}
 
 		_digger.OutOfRange(this);
