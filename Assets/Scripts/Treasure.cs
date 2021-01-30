@@ -16,24 +16,25 @@ public class Treasure : MonoBehaviour
 	Rigidbody _rigidbody;
 	bool _flung;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+	void Awake()
+	{
 		_rigidbody = GetComponent<Rigidbody>();
 		if (_rigidbody == null) { Debug.Log("can't find rigidbody on treasure", gameObject); }
-
-		if (Controller == null) { Debug.Log("no manager to track this treasure!", gameObject); }
 		if (Trigger == null) { Debug.Log("you forgot to set the trigger on treasure", gameObject); }
 		if (PhysCollider == null) { Debug.Log("you forgot to set the phys collider on treasure", gameObject); }
-
-		_startTime = Time.time;
 
 		Trigger.enabled = false;
 		PhysCollider.enabled = false;
 		_flung = false;
+	}
+
+    void Start()
+    {
+		if (Controller == null) { Debug.Log("no manager to track this treasure!", gameObject); }
+
+		_startTime = Time.time;
     }
 
-    // Update is called once per frame
     void Update()
     {
 		if (!Trigger.enabled && Time.time - _startTime >= PickupDelay)
@@ -48,7 +49,7 @@ public class Treasure : MonoBehaviour
 		if (!_flung)
 		{
 			float randRadians = Random.value * Mathf.PI * 2;
-			_rigidbody.AddForce(new Vector3(Mathf.Cos(randRadians), 1.0f, Mathf.Sin(randRadians)) * (MinThrowStrength + Random.value * ThrowVariance), ForceMode.Impulse);
+			_rigidbody.AddForce(new Vector3(Mathf.Cos(randRadians), 2.0f, Mathf.Sin(randRadians)) * (MinThrowStrength + Random.value * ThrowVariance), ForceMode.Impulse);
 			_flung = true;
 		}
 	}
