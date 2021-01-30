@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class GameController : MonoBehaviour
 	public Cannon CannonPrefab;
 	public Seeker Shark;
 	public GameObject Player;
+	public Text ScoreText;
 
 	public int MaxPayoff;
 
@@ -34,6 +36,7 @@ public class GameController : MonoBehaviour
 	public void AddScore(int amount)
 	{
 		_score += amount;
+		ScoreText.text = "Score: " + _score;
 	}
 
 	void Awake()
@@ -75,6 +78,8 @@ public class GameController : MonoBehaviour
 		_nextSpawn = NextCannonBallSpawnTime(Time.time);
 
 		Shark.GetComponent<NavMeshAgent>().Warp(SharkStartPosition(Shark));
+
+		ScoreText.text = "Score: 0";
     }
 
     // Update is called once per frame
